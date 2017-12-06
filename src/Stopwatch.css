@@ -1,0 +1,15 @@
+.stopwatch__label {
+    text-align: center;
+    font-size: 3em;
+}
+
+.stopwatch__buttons {
+    display: table;
+    margin: 0 auto;
+}
+
+.stopwatch__button {
+    padding: 10px;
+    min-width: 100px;
+    margin: 10px;
+}
