@@ -51,26 +51,20 @@ const getTimeString = function getTimeStringFunction(milliseconds) {
 
 
 class Stopwatch extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            laps: [],
-            time: 0,
-            isRunning: false
-        };
-        this.handleRunClick = this.handleRunClick.bind(this);
-        this.handleClearClick = this.handleClearClick.bind(this);
-        this.handleLapClick = this.handleLapClick.bind(this);
-    }
+    state = {
+        laps: [],
+        time: 0,
+        isRunning: false
+    };
 
-    handleLapClick(event) {
+    handleLapClick = (event) => {
         const lapTime = this.state.time;
         this.setState((prevState) => ({
             laps: [...prevState.laps, lapTime]
         }));
-    }
+    };
 
-    handleRunClick(event) {
+    handleRunClick = (event) => {
         const prevState = this.state;
         if (prevState.isRunning) {
             clearInterval(this.timer);
@@ -84,12 +78,12 @@ class Stopwatch extends React.PureComponent {
             });
         }
         this.setState((prevState) => ({ isRunning: !prevState.isRunning }));
-    }
+    };
 
-    handleClearClick(event) {
+    handleClearClick = (event) => {
         clearInterval(this.timer);
         this.setState((prevState) => ({ time: 0, laps: [], isRunning: false }));
-    }
+    };
 
     componentWillUnmount() {
         clearInterval(this.timer);

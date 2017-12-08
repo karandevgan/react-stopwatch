@@ -4,20 +4,16 @@ import ReactDOM from 'react-dom';
 import Stopwatch from './Stopwatch';
 
 class StopwatchContainer extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isStopwatchDisplayed: true
-        };
-        this.handleStopwatchDisplayToggle = this.handleStopwatchDisplayToggle.bind(this);
-    }
+    state = {
+        isStopwatchDisplayed: true
+    };
 
-    handleStopwatchDisplayToggle() {
+    handleStopwatchDisplayToggle = () => {
         this.setState((prevState) => ({
             ...prevState,
             isStopwatchDisplayed: !prevState.isStopwatchDisplayed
         }));
-    }
+    };
 
     render() {
         const { isStopwatchDisplayed } = this.state;
