@@ -80,12 +80,16 @@ class Stopwatch extends React.PureComponent {
 }
 
 function withStopwatch(Component) {
-    function Wrapper(props, context) {
+    function Wrapper({ innerRef, ...remProps }, context) {
         const stopwatchContext = context[STOPWATCH_CONTEXT];
         return (
-            <Component stopWatchContext={stopwatchContext} {...props} />
+            <Component ref={innerRef} stopWatchContext={stopwatchContext} {...remProps} />
         );
     }
+
+    Wrapper.displayName = `withStopwatch(${Component.displayName || Component.name || ''})`;
+
+    Wrapper.WrappedComponent = Component;
 
     Wrapper.contextTypes = {
         [STOPWATCH_CONTEXT]: PropTypes.object.isRequired,

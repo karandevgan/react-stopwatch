@@ -13,6 +13,10 @@ class StopwatchContainer extends React.PureComponent {
         }));
     };
 
+    componentDidMount() {
+        this.runBtn.focus();
+    }
+
     render() {
         const { isStopwatchDisplayed } = this.state;
         let stopwatch;
@@ -23,7 +27,9 @@ class StopwatchContainer extends React.PureComponent {
                     <Stopwatch.Time className="stopwatch__label" />
                     <div className="stopwatch__buttons">
                         <Stopwatch.LapButton className="stopwatch__button" />
-                        <Stopwatch.RunButton className="stopwatch__button" />
+                        <Stopwatch.RunButton
+                            innerRef={(runBtn) => this.runBtn = runBtn}
+                            className="stopwatch__button" />
                         <Stopwatch.ClearButton className="stopwatch__button" />
                     </div>
                 </Stopwatch >
