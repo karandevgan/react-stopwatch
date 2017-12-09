@@ -20,4 +20,20 @@ StopwatchLaps.contextTypes = {
     [STOPWATCH_CONTEXT]: PropTypes.object.isRequired,
 };
 
+function withLaps(Component) {
+    function Wrapper(props, context) {
+        const stopwatchContext = context[STOPWATCH_CONTEXT];
+        return (
+            <Component {...stopwatchContext} {...props} />
+        );
+    }
+
+    Wrapper.contextTypes = {
+        [STOPWATCH_CONTEXT]: PropTypes.object.isRequired,
+    };
+
+    return Wrapper;
+}
+
 export default StopwatchLaps;
+export { withLaps };
