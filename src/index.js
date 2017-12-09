@@ -23,11 +23,12 @@ class StopwatchContainer extends React.PureComponent {
                 <Stopwatch>
                     <Stopwatch.Laps className="stopwatch__label" />
                     <Stopwatch.Time className="stopwatch__label" />
-                    {/* <div className="stopwatch__buttons" /> */}
-                    <Stopwatch.LapButton className="stopwatch__button" />
-                    <Stopwatch.RunButton className="stopwatch__button" />
-                    <Stopwatch.ClearButton className="stopwatch__button" />
-                </Stopwatch>
+                    <div className="stopwatch__buttons">
+                        <Stopwatch.LapButton className="stopwatch__button" />
+                        <Stopwatch.RunButton className="stopwatch__button" />
+                        <Stopwatch.ClearButton className="stopwatch__button" />
+                    </div>
+                </Stopwatch >
             );
         } else {
             stopwatch = null;
