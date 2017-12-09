@@ -1,7 +1,7 @@
 import React from 'react';
 
 function StopwatchLapButton(props) {
-    const { handleLapClick, isRunning, className } = props;
+    const { stopWatchContext: { handleLapClick, isRunning }, className } = props;
 
     return (
         <button

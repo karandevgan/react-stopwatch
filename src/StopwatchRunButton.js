@@ -1,7 +1,7 @@
 import React from 'react';
 
 function StopwatchRunButton(props) {
-    const { handleRunClick, isRunning, className } = props;
+    const { stopWatchContext: { handleRunClick, isRunning }, className } = props;
 
     return (
         <button

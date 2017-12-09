@@ -83,7 +83,7 @@ function withStopwatch(Component) {
     function Wrapper(props, context) {
         const stopwatchContext = context[STOPWATCH_CONTEXT];
         return (
-            <Component {...stopwatchContext} {...props} />
+            <Component stopWatchContext={stopwatchContext} {...props} />
         );
     }
 
@@ -95,4 +95,4 @@ function withStopwatch(Component) {
 }
 
 export default Stopwatch;
-export {withStopwatch};
+export { withStopwatch };

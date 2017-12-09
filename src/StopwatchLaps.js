@@ -1,7 +1,7 @@
 import React from 'react';
 import getTimeString from './helper';
 
-function StopwatchLaps({ laps, className }) {
+function StopwatchLaps({ stopWatchContext: { laps }, className }) {
     return (
         laps.map((lapTime, index) => {
             return (
