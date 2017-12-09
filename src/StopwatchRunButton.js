@@ -1,22 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import STOPWATCH_CONTEXT from './context';
 
-function StopwatchRunButton(props, context) {
-    const { handleRunClick, isRunning } = context[STOPWATCH_CONTEXT];
+function StopwatchRunButton(props) {
+    const { handleRunClick, isRunning, className } = props;
 
     return (
         <button
             onClick={handleRunClick}
-            {...props}
+            className={className}
         >
             {!isRunning ? 'Start' : 'Stop'}
         </button>
     );
 }
-
-StopwatchRunButton.contextTypes = {
-    [STOPWATCH_CONTEXT]: PropTypes.object.isRequired,
-};
 
 export default StopwatchRunButton;

@@ -1,23 +1,5 @@
 import React from 'react';
 import Stopwatch from './Stopwatch';
-import { withLaps } from './StopwatchLaps';
-import getTimeString from './helper';
-
-function MyLaps({ laps, className }) {
-    return (
-        <ul className={className}>
-            {
-                laps.map((lapTime, index) => {
-                    return (
-                        <li key={lapTime}>{getTimeString(lapTime)}</li>
-                    );
-                })
-            }
-        </ul>
-    );
-}
-
-const MyLapsWrapper = withLaps(MyLaps);
 
 class StopwatchContainer extends React.PureComponent {
     state = {
@@ -44,7 +26,6 @@ class StopwatchContainer extends React.PureComponent {
                         <Stopwatch.RunButton className="stopwatch__button" />
                         <Stopwatch.ClearButton className="stopwatch__button" />
                     </div>
-                    {/* <MyLapsWrapper /> */}
                 </Stopwatch >
             );
         } else {

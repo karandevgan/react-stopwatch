@@ -9,11 +9,11 @@ import StopwatchClearButton from './StopwatchClearButton';
 import './Stopwatch.css';
 
 class Stopwatch extends React.PureComponent {
-    static Laps = StopwatchLaps;
-    static Time = StopwatchTime;
-    static LapButton = StopwatchLapButton;
-    static RunButton = StopwatchRunButton;
-    static ClearButton = StopwatchClearButton;
+    static Laps = withStopwatch(StopwatchLaps);
+    static Time = withStopwatch(StopwatchTime);
+    static LapButton = withStopwatch(StopwatchLapButton);
+    static RunButton = withStopwatch(StopwatchRunButton);
+    static ClearButton = withStopwatch(StopwatchClearButton);
     static childContextTypes = {
         [STOPWATCH_CONTEXT]: PropTypes.object.isRequired,
     };
@@ -79,4 +79,20 @@ class Stopwatch extends React.PureComponent {
     }
 }
 
+function withStopwatch(Component) {
+    function Wrapper(props, context) {
+        const stopwatchContext = context[STOPWATCH_CONTEXT];
+        return (
+            <Component {...stopwatchContext} {...props} />
+        );
+    }
+
+    Wrapper.contextTypes = {
+        [STOPWATCH_CONTEXT]: PropTypes.object.isRequired,
+    };
+
+    return Wrapper;
+}
+
 export default Stopwatch;
+export {withStopwatch};

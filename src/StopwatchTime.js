@@ -1,19 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import getTimeString from './helper';
-import STOPWATCH_CONTEXT from './context';
 
 function StopwatchTime(props, context) {
-    const { time } = context[STOPWATCH_CONTEXT];
+    const { time, className } = props;
     return (
-        <div {...props}>
+        <div className={className}>
             <label>{getTimeString(time)}</label>
         </div>
     );
 }
-
-StopwatchTime.contextTypes = {
-    [STOPWATCH_CONTEXT]: PropTypes.object.isRequired,
-};
 
 export default StopwatchTime;
