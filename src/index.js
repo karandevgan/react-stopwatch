@@ -19,7 +19,16 @@ class StopwatchContainer extends React.PureComponent {
         const { isStopwatchDisplayed } = this.state;
         let stopwatch;
         if (isStopwatchDisplayed) {
-            stopwatch = (<Stopwatch />);
+            stopwatch = (
+                <Stopwatch>
+                    <Stopwatch.Laps className="stopwatch__label" />
+                    <Stopwatch.Time className="stopwatch__label" />
+                    {/* <div className="stopwatch__buttons" /> */}
+                    <Stopwatch.LapButton className="stopwatch__button" />
+                    <Stopwatch.RunButton className="stopwatch__button" />
+                    <Stopwatch.ClearButton className="stopwatch__button" />
+                </Stopwatch>
+            );
         } else {
             stopwatch = null;
         }

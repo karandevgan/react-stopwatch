@@ -49,8 +49,67 @@ const getTimeString = function getTimeStringFunction(milliseconds) {
     return `${padString(hours, '0', 2)}:${padString(minutes, '0', 2)}:${padString(seconds, '0', 2)}:${padString(remainingMilliseconds, '0', 3)}`;
 };
 
+function StopwatchLaps({ laps, className }) {
+    return (
+        laps.map((lapTime, index) => {
+            return (
+                <div key={lapTime} className={className}>
+                    <label>{`Lap ${index + 1}:`} {getTimeString(lapTime)}</label>
+                </div>
+            )
+        })
+    );
+}
+
+function StopwatchTime({ time, className }) {
+    return (
+        <div className={className}>
+            <label>{getTimeString(time)}</label>
+        </div>
+    );
+}
+
+function StopwatchLapButton({ handleLapClick, isRunning, className }) {
+    return (
+        <button
+            onClick={handleLapClick}
+            disabled={!isRunning}
+            className={className}
+        >
+            Lap
+        </button>
+    );
+}
+
+function StopwatchRunButton({ handleRunClick, isRunning, className }) {
+    return (
+        <button
+            onClick={handleRunClick}
+            className={className}
+        >
+            {!isRunning ? 'Start' : 'Stop'}
+        </button>
+    );
+}
+
+function StopwatchClearButton({ handleClearClick, className }) {
+    return (
+        <button
+            onClick={handleClearClick}
+            className={className}
+        >
+            Clear
+        </button>
+    );
+}
 
 class Stopwatch extends React.PureComponent {
+    static Laps = StopwatchLaps;
+    static Time = StopwatchTime;
+    static LapButton = StopwatchLapButton;
+    static RunButton = StopwatchRunButton;
+    static ClearButton = StopwatchClearButton;
+
     state = {
         laps: [],
         time: 0,
@@ -90,39 +149,23 @@ class Stopwatch extends React.PureComponent {
     }
 
     render() {
-        const { time, isRunning } = this.state;
+        const { time, isRunning, laps } = this.state;
+        const children = React.Children.map(
+            this.props.children,
+            (child) => {
+                return React.cloneElement(child, {
+                    laps,
+                    time,
+                    isRunning,
+                    handleLapClick: this.handleLapClick,
+                    handleRunClick: this.handleRunClick,
+                    handleClearClick: this.handleClearClick,
+                });
+            }
+        );
         return (
             <div>
-                {
-                    this.state.laps.map((lapTime, index) => {
-                        return (
-                            <div key={lapTime} className="stopwatch__label">
-                                <label>{`Lap ${index + 1}:`} {getTimeString(lapTime)}</label>
-                            </div>
-                        )
-                    })
-                }
-                <div className="stopwatch__label">
-                    <label>{getTimeString(time)}</label>
-                </div>
-                <div className="stopwatch__buttons">
-                    <button
-                        className="stopwatch__button"
-                        onClick={this.handleLapClick}
-                        disabled={!isRunning}>
-                        Lap
-                    </button>
-                    <button
-                        className="stopwatch__button"
-                        onClick={this.handleRunClick}>
-                        {!isRunning ? 'Start' : 'Stop'}
-                    </button>
-                    <button
-                        className="stopwatch__button"
-                        onClick={this.handleClearClick}>
-                        Clear
-                    </button>
-                </div>
+                {children}
             </div>
         );
     }
