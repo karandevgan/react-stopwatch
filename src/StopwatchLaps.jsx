@@ -1,11 +1,11 @@
 import React from 'react';
 import getTimeString from './helper';
 
-function StopwatchLaps({ stopWatchContext: { laps }, className }) {
+function StopwatchLaps({ laps, ...remProps }) {
     return (
         laps.map((lapTime, index) => {
             return (
-                <div key={lapTime} className={className}>
+                <div key={lapTime} {...remProps}>
                     <label>{`Lap ${index + 1}:`} {getTimeString(lapTime)}</label>
                 </div>
             )

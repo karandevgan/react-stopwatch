@@ -4,14 +4,14 @@ class StopwatchRunButton extends React.PureComponent {
     focus = () => {
         this.btn.focus();
     };
-    
+
     render() {
-        const { stopWatchContext: { handleRunClick, isRunning }, className } = this.props;
+        const { handleRunClick, isRunning, ...remProps } = this.props;
         return (
             <button
                 ref={(btn) => this.btn = btn}
                 onClick={handleRunClick}
-                className={className}
+                {...remProps}
             >
                 {!isRunning ? 'Start' : 'Stop'}
             </button>

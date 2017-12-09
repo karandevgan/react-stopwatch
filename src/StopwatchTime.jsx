@@ -2,9 +2,9 @@ import React from 'react';
 import getTimeString from './helper';
 
 function StopwatchTime(props, context) {
-    const { stopWatchContext: { time }, className } = props;
+    const { time, ...remProps } = props;
     return (
-        <div className={className}>
+        <div {...remProps}>
             <label>{getTimeString(time)}</label>
         </div>
     );

@@ -9,14 +9,11 @@ import StopwatchClearButton from './StopwatchClearButton';
 import './Stopwatch.css';
 
 class Stopwatch extends React.PureComponent {
-    static Laps = withStopwatch(StopwatchLaps);
-    static Time = withStopwatch(StopwatchTime);
-    static LapButton = withStopwatch(StopwatchLapButton);
-    static RunButton = withStopwatch(StopwatchRunButton);
-    static ClearButton = withStopwatch(StopwatchClearButton);
-    static childContextTypes = {
-        [STOPWATCH_CONTEXT]: PropTypes.object.isRequired,
-    };
+    static Laps = StopwatchLaps;
+    static Time = StopwatchTime;
+    static LapButton = StopwatchLapButton;
+    static RunButton = StopwatchRunButton;
+    static ClearButton = StopwatchClearButton;
 
     state = {
         laps: [],
@@ -56,47 +53,20 @@ class Stopwatch extends React.PureComponent {
         clearInterval(this.timer);
     }
 
-    getChildContext() {
-        const { time, isRunning, laps } = this.state;
-        return {
-            [STOPWATCH_CONTEXT]: {
-                laps,
-                time,
-                isRunning,
-                handleLapClick: this.handleLapClick,
-                handleRunClick: this.handleRunClick,
-                handleClearClick: this.handleClearClick,
-            }
-        };
-    }
-
     render() {
         return (
             <div>
-                {this.props.children}
+                {this.props.renderLaps({ laps: this.state.laps })}
+                {this.props.renderTime({ time: this.state.time })}
+                {this.props.renderButtons({
+                    isRunning: this.state.isRunning,
+                    handleLapClick: this.handleLapClick,
+                    handleRunClick: this.handleRunClick,
+                    handleClearClick: this.handleClearClick
+                })}
             </div>
         );
     }
 }
 
-function withStopwatch(Component) {
-    function Wrapper({ innerRef, ...remProps }, context) {
-        const stopwatchContext = context[STOPWATCH_CONTEXT];
-        return (
-            <Component ref={innerRef} stopWatchContext={stopwatchContext} {...remProps} />
-        );
-    }
-
-    Wrapper.displayName = `withStopwatch(${Component.displayName || Component.name || ''})`;
-
-    Wrapper.WrappedComponent = Component;
-
-    Wrapper.contextTypes = {
-        [STOPWATCH_CONTEXT]: PropTypes.object.isRequired,
-    };
-
-    return Wrapper;
-}
-
 export default Stopwatch;
-export { withStopwatch };

@@ -1,13 +1,13 @@
 import React from 'react';
 
 function StopwatchLapButton(props) {
-    const { stopWatchContext: { handleLapClick, isRunning }, className } = props;
+    const { handleLapClick, isRunning, ...remProps } = props;
 
     return (
         <button
             onClick={handleLapClick}
             disabled={!isRunning}
-            className={className}
+            {...remProps}
         >
             Lap
         </button>

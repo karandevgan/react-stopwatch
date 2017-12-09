@@ -1,12 +1,12 @@
 import React from 'react';
 
 function StopwatchClearButton(props) {
-    const { stopWatchContext: { handleClearClick }, className } = props;
+    const { handleClearClick, ...remProps } = props;
 
     return (
         <button
             onClick={handleClearClick}
-            className={className}
+            {...remProps}
         >
             Clear
         </button>

@@ -6,6 +6,40 @@ class StopwatchContainer extends React.PureComponent {
         isStopwatchDisplayed: true
     };
 
+    renderLaps = ({ laps }) => {
+        return (
+            <Stopwatch.Laps laps={laps} className="stopwatch__label" />
+        );
+    }
+
+    renderTime = ({ time }) => {
+        return (
+            <Stopwatch.Time time={time} className="stopwatch__label" />
+        );
+    }
+
+    renderButtons = ({ handleLapClick, handleRunClick, handleClearClick, isRunning }) => {
+        return (
+            <div className="stopwatch__buttons">
+                <Stopwatch.LapButton
+                    handleLapClick={handleLapClick}
+                    isRunning={isRunning}
+                    className="stopwatch__button"
+                />
+                <Stopwatch.RunButton
+                    handleRunClick={handleRunClick}
+                    isRunning={isRunning}
+                    ref={(runBtn) => this.runBtn = runBtn}
+                    className="stopwatch__button"
+                />
+                <Stopwatch.ClearButton
+                    handleClearClick={handleClearClick}
+                    className="stopwatch__button"
+                />
+            </div>
+        );
+    }
+
     handleStopwatchDisplayToggle = () => {
         this.setState((prevState) => ({
             ...prevState,
@@ -22,17 +56,11 @@ class StopwatchContainer extends React.PureComponent {
         let stopwatch;
         if (isStopwatchDisplayed) {
             stopwatch = (
-                <Stopwatch>
-                    <Stopwatch.Laps className="stopwatch__label" />
-                    <Stopwatch.Time className="stopwatch__label" />
-                    <div className="stopwatch__buttons">
-                        <Stopwatch.LapButton className="stopwatch__button" />
-                        <Stopwatch.RunButton
-                            innerRef={(runBtn) => this.runBtn = runBtn}
-                            className="stopwatch__button" />
-                        <Stopwatch.ClearButton className="stopwatch__button" />
-                    </div>
-                </Stopwatch >
+                <Stopwatch
+                    renderLaps={this.renderLaps}
+                    renderTime={this.renderTime}
+                    renderButtons={this.renderButtons}
+                />
             );
         } else {
             stopwatch = null;
