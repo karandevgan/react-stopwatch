@@ -15,11 +15,13 @@ class Stopwatch extends React.PureComponent {
     static RunButton = StopwatchRunButton;
     static ClearButton = StopwatchClearButton;
 
-    state = {
+    initialState = {
         laps: [],
         time: 0,
         isRunning: false
     };
+
+    state = this.initialState;
 
     handleLapClick = (event) => {
         const lapTime = this.state.time;
@@ -46,7 +48,7 @@ class Stopwatch extends React.PureComponent {
 
     handleClearClick = (event) => {
         clearInterval(this.timer);
-        this.setState((prevState) => ({ time: 0, laps: [], isRunning: false }));
+        this.setState((prevState) => ({ ...this.initialState }));
     };
 
     componentWillUnmount() {
